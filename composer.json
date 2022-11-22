@@ -1,0 +1,21 @@
+{
+  "name": "one23/language-detection",
+  "type": "library",
+  "homepage": "https://github.com/FlexIDK/language-detection",
+  "description": "PHP ngram language detection",
+  "license": "MIT",
+  "version": "0.5",
+  "authors": [
+  ],
+  "require": {
+    "php" : "~8",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "One23\\LanguageDetection\\": "src"
+    }
+  },
+  "extra": {
+  }
+}
