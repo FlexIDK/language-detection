@@ -4,12 +4,13 @@
   "homepage": "https://github.com/FlexIDK/language-detection",
   "description": "PHP ngram language detection",
   "license": "MIT",
-  "version": "0.5",
+  "version": "1.0.1",
   "authors": [
   ],
   "require": {
     "php" : "~8",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "one23/iso639": ">=1"
   },
   "autoload": {
     "psr-4": {

@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f9b8e07362f3c8a17bd6baab6e2088a",
-    "packages": [],
+    "content-hash": "20eeeb194f3b1d69ffa3481afa0d594a",
+    "packages": [
+        {
+            "name": "one23/iso639",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FlexIDK/iso639.git",
+                "reference": "88017858895f4137e0f5be44cb780c69d84e63f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FlexIDK/iso639/zipball/88017858895f4137e0f5be44cb780c69d84e63f3",
+                "reference": "88017858895f4137e0f5be44cb780c69d84e63f3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "~8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "One23\\Iso639\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library to convert ISO-639",
+            "homepage": "https://github.com/FlexIDK/iso639",
+            "keywords": [
+                "639",
+                "iso",
+                "iso-639",
+                "lang",
+                "language"
+            ],
+            "support": {
+                "issues": "https://github.com/FlexIDK/iso639/issues",
+                "source": "https://github.com/FlexIDK/iso639/tree/v1.0.2"
+            },
+            "time": "2022-11-26T19:03:15+00:00"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
@@ -13,7 +57,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8"
+        "php": "~8",
+        "ext-mbstring": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"

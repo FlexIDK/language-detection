@@ -87,10 +87,7 @@ LanguageDetection\Detector::detect("The Declaration by United Nations was drafte
 LanguageDetection\Detector::detect("The Declaration by United Nations was drafted at the White House on December 29, 1941, by US President Franklin D. Roosevelt, British Prime Minister Winston Churchill, and the Roosevelt aide Harry Hopkins. It incorporated Soviet suggestions but left no role for France. Roosevelt first coined the term \"United Nations\" to describe the Allied countries. Roosevelt suggested \"United Nations\" as an alternative to the name \"Associated Powers\" (the U.S. was never formally a member of the Allies of World War I but entered the war in 1917 as a self-styled \"Associated Power\"). Churchill accepted it and noted that the phrase was used by Lord Byron in the poem Childe Harold's Pilgrimage (Stanza 35). The term was first officially used on 1–2 January 1942, when 26 governments signed the declaration. One major change from the Atlantic Charter was the addition of a provision for religious freedom, which Stalin approved after Roosevelt insisted. The Declaration by United Nations was the basis of the modern United Nations.")
     ->getScores();
 // => [["eng",1],["sco",0.9856188981119092],["fra",0.9534697432368501],["dan",0.9519214227345061],["deu",0.9473302223560277],...]
-
-
 ```
-
 
 ## API Methods
 
@@ -107,7 +104,7 @@ $detector = new One23\LanguageDetection\Detector([
 ]);
 ```
 
-### evaluate(string $str)
+### evaluate(string $str): self
 
 It performs an evaluation on a given text.
 
@@ -115,7 +112,7 @@ It performs an evaluation on a given text.
 $detector->evaluate('Hello world');
 ```
 
-### getLanguage()
+### getLanguage(): string
 
 The detected language
 
@@ -123,7 +120,7 @@ The detected language
 $detector->getLanguage(); // => 'eng'
 ```
 
-### getLanguages()
+### getLanguages(): string[]
 
 A list of loaded models that will be evaluated.
 
@@ -131,7 +128,7 @@ A list of loaded models that will be evaluated.
 $detector->getLanguages(); // => ['deu', 'eng', 'fra', ...]
 ```
 
-### getScores()
+### getScores(): array
 
 A list of loaded models that will be evaluated.
 
@@ -139,7 +136,7 @@ A list of loaded models that will be evaluated.
 $detector->getScores(); // => [["eng",1], ["sco",0.9856188981119092], ...]
 ```
 
-### getSupportedLanguages()
+### getSupportedLanguages(): string[]
 
 A list of supported languages that will be evaluated.
 
@@ -147,19 +144,19 @@ A list of supported languages that will be evaluated.
 $detector->getSupportedLanguages(); // => ["ace","ada","afr","als",...]
 ```
 
-### setDictionary(string $dict)
+### setDictionary(string $dict): self
 
 ```php
 $detector->setDictionary('min'); // 'min', 'default', 'all'
 ```
 
-### setOnly(array $lang)
+### setOnly(array $lang): self
 
 ```php
 $detector->setOnly(['eng', 'rus', 'fra', ]);
 ```
 
-### getOnly(array $lang)
+### getOnly(array $lang): ?array
 
 Get limited languages by supported languages
 
@@ -167,7 +164,7 @@ Get limited languages by supported languages
 $detector->getOnly(); // => ["eng","fra","rus",...]
 ```
 
-### getText()
+### getText(): string
 
 Returns the last string which has been evaluated
 
@@ -180,6 +177,70 @@ $detector->getText(); // => "Hello world"
 ```php
 LanguageDetection\Detector::detect("Hello world")
     ->getLanguages(); // => 'eng'
+```
+
+## Detector639 is extends Detector
+
+### getScores(): array
+
+A list of loaded models that will be evaluated.
+
+```php
+$detector->getScores(); // => [["eng",1,Code3Min], ["sco",0.9856188981119092,Code3Min], ...]
+```
+
+### getSupportedLanguages(): string[]
+
+A list of supported iso-639-1 languages that will be evaluated.
+
+```php
+$detector->getSupportedLanguages(); // => ["afr","amh","hye","bam",...]
+```
+
+### getLanguages(): Code3Min[]
+
+A list of loaded models that will be evaluated.
+
+```php
+$detector->getLanguages(); // => [Code3Min, Code3Min, Code3Min, ...]
+```
+
+### code1(): Code1
+
+```php
+$detector->code1(); // => Code1
+```
+
+### code2t(): Code2t
+
+```php
+$detector->code2t(); // => Code2b
+```
+
+### code2b(): Code2b
+
+```php
+$detector->code2b(); // => Code2b
+```
+
+### code3(): Code3Min
+
+```php
+$detector->code3(); // => Code3Min
+```
+
+## Use
+
+```php
+$detect = LanguageDetection\Detector639::detect(<<<EOF
+Crowds gathered for a rally in the city of Rawalpindi, taking flags and signs.
+EOF
+
+(string)$detect->code1(); // => 'en'
+$detect->code2b(); // => Code2b
+$detect->code2t(); // => Code2t
+$detect->code3(); // => Code3
+
 ```
 
 ---

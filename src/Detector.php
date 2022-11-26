@@ -95,7 +95,7 @@ class Detector {
         'dict'      => 'default',
     ];
 
-    protected ?array $dictionary= null;
+    protected array $dictionary = [];
     protected ?array $trigram   = null;
     protected ?array $result    = null;
     protected ?string $str      = null;
@@ -136,13 +136,13 @@ class Detector {
      * @throws Exception
      */
     public function setDictionary(string $dict): self {
-        $this->dictionary   = null;
-        $this->trigram      = null;
-        $this->result       = null;
-
         if (!in_array($dict, ['all', 'min', 'default'])) {
             throw new Exception("Dictionary can only: 'all', 'min' or 'default'");
         }
+
+        $this->dictionary[$dict] = null;
+        $this->trigram      = null;
+        $this->result       = null;
 
         $this->options['dict'] = $dict;
 
@@ -264,7 +264,7 @@ class Detector {
     /**
      * A list of scores by language, for all evaluated languages.
      *
-     * @return float[]
+     * @return array{string, float}
      */
     public function getScores(): array {
         if (!is_null($this->result)) {
@@ -500,8 +500,10 @@ class Detector {
      * @throws Exception
      */
     protected function getDictionary(): array {
-        if (!is_null($this->dictionary)) {
-            return $this->dictionary;
+        $dict = $this->options['dict'];
+
+        if (isset($this->dictionary[$dict])) {
+            return $this->dictionary[$dict];
         }
 
         $path = realpath(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR ."resources" . DIRECTORY_SEPARATOR . "{$this->options['dict']}.php");
@@ -509,10 +511,10 @@ class Detector {
             throw new Exception("Dictionary '{$this->options['dict']}' not found");
         }
 
-        $this->dictionary   = include($path);
+        $this->dictionary[$dict]   = include($path);
         $this->trigram      = $this->trigramDictionary();
 
-        return $this->dictionary;
+        return $this->dictionary[$dict];
     }
 
     /**
@@ -531,6 +533,22 @@ class Detector {
             ];
         }
 
+        $add = [];
+        foreach ($this->regexps as $key => $val) {
+            if (\mb_strlen($key) !== 3) {
+                continue;
+            }
+
+            $add[] = $key;
+        }
+
+        $result = [
+            ...$result,
+            ...$add,
+        ];
+
+        $result = array_unique($result);
+
         sort($result);
 
         return $result;
@@ -545,7 +563,8 @@ class Detector {
      * @throws Exception
      */
     public static function detect(string $str, array $options = []): self {
-        return (new self($options))
+        $class = get_called_class();
+        return (new $class($options))
             ->evaluate($str);
     }
 
