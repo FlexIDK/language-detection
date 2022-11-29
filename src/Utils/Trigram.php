@@ -92,7 +92,8 @@ class Trigram {
         $str = preg_replace("/[\W\t\s\x{21}-\x{40}\x{5B}\x{5D}-\x{60}\x{7B}-\x{7E}]+/u", " ", $str);
 
         return \mb_strtolower(
-            trim($str)
+            trim($str),
+            'UTF-8'
         );
     }
 

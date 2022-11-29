@@ -23,14 +23,14 @@ class Ngram {
     protected function grams(string $str): array {
         $nGrams = [];
 
-        $length = \mb_strlen($str) - $this->n + 1;
+        $length = \mb_strlen($str, 'UTF-8') - $this->n + 1;
 
         if ($length < 1) {
             return $nGrams;
         }
 
         for($index = 0; $index < $length; $index++) {
-            $nGrams[] = \mb_substr($str, $index, $this->n);
+            $nGrams[] = \mb_substr($str, $index, $this->n, 'UTF-8');
         }
 
         return $nGrams;

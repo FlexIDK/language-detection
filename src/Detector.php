@@ -286,10 +286,11 @@ class Detector {
                 ]
             ),
             0,
-            $this->options['maxLength']
+            $this->options['maxLength'],
+            'UTF-8'
         );
 
-        $length = \mb_strlen($str);
+        $length = \mb_strlen($str, 'UTF-8');
         if ($length < $this->options['minLength']) {
             return $this->undefinedTuples();
         }
@@ -463,7 +464,7 @@ class Detector {
      * @return array
      */
     protected function normalize(string $str, array $distances): array {
-        $length = \mb_strlen($str);
+        $length = \mb_strlen($str, 'UTF-8');
 
         $min = $distances[0][1];
         $max = $length * $this->options['maxDifference'] - $min;
@@ -480,7 +481,7 @@ class Detector {
 
     protected function getOccurrence(string $str, string $regexp): float {
         if (preg_match_all($regexp, $str, $m)) {
-            $length = \mb_strlen($str);
+            $length = \mb_strlen($str, 'UTF-8');
             if (!$length) {
                 return 0;
             }
@@ -535,7 +536,7 @@ class Detector {
 
         $add = [];
         foreach ($this->regexps as $key => $val) {
-            if (\mb_strlen($key) !== 3) {
+            if (\mb_strlen($key, 'UTF-8') !== 3) {
                 continue;
             }
 
