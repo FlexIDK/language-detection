@@ -473,7 +473,12 @@ class Detector {
         $cnt = count($distances);
 
         while (++$index < $cnt) {
-            $distances[$index][1] = (1 - ($distances[$index][1] - $min) / $max) ?: 0;
+            if ($max > 0) {
+                $distances[$index][1] = (1 - ($distances[$index][1] - $min) / $max) ?: 0;
+            }
+            else {
+                $distances[$index][1] = 0;
+            }
         }
 
         return $distances;
